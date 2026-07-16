@@ -1,7 +1,8 @@
-import { mkdtemp, readFile, rm } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm } from 'node:fs/promises'
 import { spawn } from 'node:child_process'
 import { resolve } from 'node:path'
 
+await mkdir(resolve('.tmp'), { recursive: true })
 const directory = await mkdtemp(resolve('.tmp/generated-check-'))
 const candidate = resolve(directory, 'generated.ts')
 const child = spawn('bun', ['run', 'scripts/generate.ts'], {
