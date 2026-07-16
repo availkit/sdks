@@ -1,0 +1,24 @@
+{
+  "name": "availkit-sdks",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.3.14",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "generate": "bun run scripts/generate.ts",
+    "generate:check": "bun run scripts/check-generated.ts",
+    "build": "bun run --cwd=packages/typescript build",
+    "typecheck": "bunx tsc --noEmit",
+    "test": "bun test packages/typescript/tests/client.test.ts",
+    "test:node": "node packages/typescript/tests/node-esm.mjs && node packages/typescript/tests/node-require.cjs",
+    "test:bun": "bun packages/typescript/tests/bun-smoke.ts",
+    "test:browser": "bun build packages/typescript/examples/browser.ts --target=browser --format=esm --outfile=.tmp/browser-consumer.js",
+    "test:package": "bun run scripts/check-package.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "1.3.14",
+    "@types/node": "^22.0.0",
+    "orval": "8.22.0",
+    "typescript": "5.9.3"
+  }
+}
