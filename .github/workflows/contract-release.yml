@@ -1,0 +1,58 @@
+name: Contract release
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_repository:
+        description: Public owner/repository containing the export workflow run
+        required: true
+      source_run_id:
+        description: Actions run ID containing the contract artifact
+        required: true
+      artifact_name:
+        description: Artifact containing exactly the three contract files
+        required: true
+        default: booking-api-contract
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download generated contract artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_REPOSITORY: ${{ inputs.source_repository }}
+          SOURCE_RUN_ID: ${{ inputs.source_run_id }}
+          ARTIFACT_NAME: ${{ inputs.artifact_name }}
+        run: gh run download "$SOURCE_RUN_ID" --repo "$SOURCE_REPOSITORY" --name "$ARTIFACT_NAME" --dir incoming
+      - name: Verify artifact set and provenance
+        id: contract
+        run: |
+          mapfile -t files < <(find incoming -maxdepth 1 -type f -printf '%f\n' | sort)
+          test "${#files[@]}" -eq 3
+          test -f incoming/source-manifest.json
+          test -f incoming/SHA256SUMS
+          version=$(jq -er '.version' incoming/source-manifest.json)
+          tag=$(jq -er '.source.tag' incoming/source-manifest.json)
+          asset=$(jq -er '.artifact.file' incoming/source-manifest.json)
+          digest=$(jq -er '.artifact.sha256' incoming/source-manifest.json)
+          test "$tag" = "booking-api-v$version"
+          test "$asset" = "availkit-booking-openapi-$version.json"
+          test -f "incoming/$asset"
+          test "$(sha256sum "incoming/$asset" | cut -d' ' -f1)" = "$digest"
+          (cd incoming && sha256sum --check SHA256SUMS)
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "asset=$asset" >> "$GITHUB_OUTPUT"
+      - name: Create immutable release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.contract.outputs.tag }}
+          VERSION: ${{ steps.contract.outputs.version }}
+          ASSET: ${{ steps.contract.outputs.asset }}
+        run: gh release create "$TAG" "incoming/$ASSET" incoming/source-manifest.json incoming/SHA256SUMS --title "Booking API $VERSION" --notes "Immutable AvailKit Booking API contract artifacts."

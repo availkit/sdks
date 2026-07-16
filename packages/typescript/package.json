@@ -1,0 +1,29 @@
+{
+  "name": "@availkit/client",
+  "version": "0.1.0",
+  "description": "Official TypeScript client for the AvailKit Booking API",
+  "type": "module",
+  "sideEffects": false,
+  "license": "Apache-2.0",
+  "repository": { "type": "git", "url": "git+https://github.com/availkit/sdks.git", "directory": "packages/typescript" },
+  "homepage": "https://availkit.dev",
+  "bugs": { "url": "https://github.com/availkit/sdks/issues" },
+  "engines": { "node": ">=22.14" },
+  "files": ["dist", "sdk-source.json", "README.md", "LICENSE"],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "rm -rf dist && bun build ./src/index.ts --target=browser --format=esm --packages=bundle --outfile=./dist/index.js && bunx tsc --emitDeclarationOnly --declaration --declarationMap false --outDir dist --rootDir src --module ESNext --moduleResolution Bundler --target ES2022 --lib ES2022,DOM,DOM.Iterable --strict --skipLibCheck src/index.ts",
+    "test": "bun test tests",
+    "pack:check": "npm pack --dry-run --json"
+  },
+  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" }
+}
