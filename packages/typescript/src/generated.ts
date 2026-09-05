@@ -3,7 +3,7 @@
  * Do not edit manually.
  * AvailKit Booking API
  * Developer-first REST API for availability, resource allocation, bookings, customers, pricing, and webhooks.
- * OpenAPI spec version: 2026.07.16.2
+ * OpenAPI spec version: 2026.09.05.1
  */
 /**
  * Data-plane environment selected by the API key.
@@ -1758,6 +1758,11 @@ export type PriceRuleListResponseResponse = PriceRuleList;
 export type PriceRuleResponseResponse = PriceRule;
 
 /**
+ * Workspace request budget exceeded. Retry after the indicated number of seconds.
+ */
+export type RateLimitResponseResponse = ErrorResponse;
+
+/**
  * Resource page returned.
  */
 export type ResourceListResponseResponse = ResourceList;
@@ -2149,10 +2154,15 @@ export type listApiKeysResponse422 = {
   status: 422
 }
 
+export type listApiKeysResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type listApiKeysResponseSuccess = (listApiKeysResponse200) & {
   headers: Headers;
 };
-export type listApiKeysResponseError = (listApiKeysResponse401 | listApiKeysResponse403 | listApiKeysResponse422) & {
+export type listApiKeysResponseError = (listApiKeysResponse401 | listApiKeysResponse403 | listApiKeysResponse422 | listApiKeysResponse429) & {
   headers: Headers;
 };
 
@@ -2217,10 +2227,15 @@ export type createApiKeyResponse422 = {
   status: 422
 }
 
+export type createApiKeyResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type createApiKeyResponseSuccess = (createApiKeyResponse201) & {
   headers: Headers;
 };
-export type createApiKeyResponseError = (createApiKeyResponse401 | createApiKeyResponse403 | createApiKeyResponse422) & {
+export type createApiKeyResponseError = (createApiKeyResponse401 | createApiKeyResponse403 | createApiKeyResponse422 | createApiKeyResponse429) & {
   headers: Headers;
 };
 
@@ -2283,10 +2298,15 @@ export type deleteApiKeyResponse422 = {
   status: 422
 }
 
+export type deleteApiKeyResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type deleteApiKeyResponseSuccess = (deleteApiKeyResponse204) & {
   headers: Headers;
 };
-export type deleteApiKeyResponseError = (deleteApiKeyResponse401 | deleteApiKeyResponse403 | deleteApiKeyResponse404 | deleteApiKeyResponse422) & {
+export type deleteApiKeyResponseError = (deleteApiKeyResponse401 | deleteApiKeyResponse403 | deleteApiKeyResponse404 | deleteApiKeyResponse422 | deleteApiKeyResponse429) & {
   headers: Headers;
 };
 
@@ -2344,10 +2364,15 @@ export type getAvailabilityResponse422 = {
   status: 422
 }
 
+export type getAvailabilityResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type getAvailabilityResponseSuccess = (getAvailabilityResponse200) & {
   headers: Headers;
 };
-export type getAvailabilityResponseError = (getAvailabilityResponse401 | getAvailabilityResponse404 | getAvailabilityResponse422) & {
+export type getAvailabilityResponseError = (getAvailabilityResponse401 | getAvailabilityResponse404 | getAvailabilityResponse422 | getAvailabilityResponse429) & {
   headers: Headers;
 };
 
@@ -2412,10 +2437,15 @@ export type listBookingsResponse422 = {
   status: 422
 }
 
+export type listBookingsResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type listBookingsResponseSuccess = (listBookingsResponse200) & {
   headers: Headers;
 };
-export type listBookingsResponseError = (listBookingsResponse401 | listBookingsResponse403 | listBookingsResponse422) & {
+export type listBookingsResponseError = (listBookingsResponse401 | listBookingsResponse403 | listBookingsResponse422 | listBookingsResponse429) & {
   headers: Headers;
 };
 
@@ -2490,10 +2520,15 @@ export type createBookingResponse422 = {
   status: 422
 }
 
+export type createBookingResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type createBookingResponseSuccess = (createBookingResponse201) & {
   headers: Headers;
 };
-export type createBookingResponseError = (createBookingResponse400 | createBookingResponse401 | createBookingResponse404 | createBookingResponse409 | createBookingResponse422) & {
+export type createBookingResponseError = (createBookingResponse400 | createBookingResponse401 | createBookingResponse404 | createBookingResponse409 | createBookingResponse422 | createBookingResponse429) & {
   headers: Headers;
 };
 
@@ -2546,10 +2581,15 @@ export type getBookingResponse404 = {
   status: 404
 }
 
+export type getBookingResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type getBookingResponseSuccess = (getBookingResponse200) & {
   headers: Headers;
 };
-export type getBookingResponseError = (getBookingResponse401 | getBookingResponse404) & {
+export type getBookingResponseError = (getBookingResponse401 | getBookingResponse404 | getBookingResponse429) & {
   headers: Headers;
 };
 
@@ -2612,10 +2652,15 @@ export type updateBookingResponse422 = {
   status: 422
 }
 
+export type updateBookingResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type updateBookingResponseSuccess = (updateBookingResponse200) & {
   headers: Headers;
 };
-export type updateBookingResponseError = (updateBookingResponse401 | updateBookingResponse403 | updateBookingResponse404 | updateBookingResponse422) & {
+export type updateBookingResponseError = (updateBookingResponse401 | updateBookingResponse403 | updateBookingResponse404 | updateBookingResponse422 | updateBookingResponse429) & {
   headers: Headers;
 };
 
@@ -2684,10 +2729,15 @@ export type cancelBookingResponse422 = {
   status: 422
 }
 
+export type cancelBookingResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type cancelBookingResponseSuccess = (cancelBookingResponse200) & {
   headers: Headers;
 };
-export type cancelBookingResponseError = (cancelBookingResponse401 | cancelBookingResponse403 | cancelBookingResponse404 | cancelBookingResponse409 | cancelBookingResponse422) & {
+export type cancelBookingResponseError = (cancelBookingResponse401 | cancelBookingResponse403 | cancelBookingResponse404 | cancelBookingResponse409 | cancelBookingResponse422 | cancelBookingResponse429) & {
   headers: Headers;
 };
 
@@ -2755,10 +2805,15 @@ export type completeBookingResponse422 = {
   status: 422
 }
 
+export type completeBookingResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type completeBookingResponseSuccess = (completeBookingResponse200) & {
   headers: Headers;
 };
-export type completeBookingResponseError = (completeBookingResponse401 | completeBookingResponse403 | completeBookingResponse404 | completeBookingResponse409 | completeBookingResponse422) & {
+export type completeBookingResponseError = (completeBookingResponse401 | completeBookingResponse403 | completeBookingResponse404 | completeBookingResponse409 | completeBookingResponse422 | completeBookingResponse429) & {
   headers: Headers;
 };
 
@@ -2826,10 +2881,15 @@ export type confirmBookingResponse422 = {
   status: 422
 }
 
+export type confirmBookingResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type confirmBookingResponseSuccess = (confirmBookingResponse200) & {
   headers: Headers;
 };
-export type confirmBookingResponseError = (confirmBookingResponse401 | confirmBookingResponse403 | confirmBookingResponse404 | confirmBookingResponse409 | confirmBookingResponse422) & {
+export type confirmBookingResponseError = (confirmBookingResponse401 | confirmBookingResponse403 | confirmBookingResponse404 | confirmBookingResponse409 | confirmBookingResponse422 | confirmBookingResponse429) & {
   headers: Headers;
 };
 
@@ -2897,10 +2957,15 @@ export type markBookingNoShowResponse422 = {
   status: 422
 }
 
+export type markBookingNoShowResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type markBookingNoShowResponseSuccess = (markBookingNoShowResponse200) & {
   headers: Headers;
 };
-export type markBookingNoShowResponseError = (markBookingNoShowResponse401 | markBookingNoShowResponse403 | markBookingNoShowResponse404 | markBookingNoShowResponse409 | markBookingNoShowResponse422) & {
+export type markBookingNoShowResponseError = (markBookingNoShowResponse401 | markBookingNoShowResponse403 | markBookingNoShowResponse404 | markBookingNoShowResponse409 | markBookingNoShowResponse422 | markBookingNoShowResponse429) & {
   headers: Headers;
 };
 
@@ -2958,10 +3023,15 @@ export type listCustomerGroupsResponse422 = {
   status: 422
 }
 
+export type listCustomerGroupsResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type listCustomerGroupsResponseSuccess = (listCustomerGroupsResponse200) & {
   headers: Headers;
 };
-export type listCustomerGroupsResponseError = (listCustomerGroupsResponse401 | listCustomerGroupsResponse403 | listCustomerGroupsResponse422) & {
+export type listCustomerGroupsResponseError = (listCustomerGroupsResponse401 | listCustomerGroupsResponse403 | listCustomerGroupsResponse422 | listCustomerGroupsResponse429) & {
   headers: Headers;
 };
 
@@ -3026,10 +3096,15 @@ export type createCustomerGroupResponse422 = {
   status: 422
 }
 
+export type createCustomerGroupResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type createCustomerGroupResponseSuccess = (createCustomerGroupResponse201) & {
   headers: Headers;
 };
-export type createCustomerGroupResponseError = (createCustomerGroupResponse401 | createCustomerGroupResponse403 | createCustomerGroupResponse422) & {
+export type createCustomerGroupResponseError = (createCustomerGroupResponse401 | createCustomerGroupResponse403 | createCustomerGroupResponse422 | createCustomerGroupResponse429) & {
   headers: Headers;
 };
 
@@ -3087,10 +3162,15 @@ export type deleteCustomerGroupResponse404 = {
   status: 404
 }
 
+export type deleteCustomerGroupResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type deleteCustomerGroupResponseSuccess = (deleteCustomerGroupResponse204) & {
   headers: Headers;
 };
-export type deleteCustomerGroupResponseError = (deleteCustomerGroupResponse401 | deleteCustomerGroupResponse403 | deleteCustomerGroupResponse404) & {
+export type deleteCustomerGroupResponseError = (deleteCustomerGroupResponse401 | deleteCustomerGroupResponse403 | deleteCustomerGroupResponse404 | deleteCustomerGroupResponse429) & {
   headers: Headers;
 };
 
@@ -3148,10 +3228,15 @@ export type getCustomerGroupResponse404 = {
   status: 404
 }
 
+export type getCustomerGroupResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type getCustomerGroupResponseSuccess = (getCustomerGroupResponse200) & {
   headers: Headers;
 };
-export type getCustomerGroupResponseError = (getCustomerGroupResponse401 | getCustomerGroupResponse403 | getCustomerGroupResponse404) & {
+export type getCustomerGroupResponseError = (getCustomerGroupResponse401 | getCustomerGroupResponse403 | getCustomerGroupResponse404 | getCustomerGroupResponse429) & {
   headers: Headers;
 };
 
@@ -3214,10 +3299,15 @@ export type updateCustomerGroupResponse422 = {
   status: 422
 }
 
+export type updateCustomerGroupResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type updateCustomerGroupResponseSuccess = (updateCustomerGroupResponse200) & {
   headers: Headers;
 };
-export type updateCustomerGroupResponseError = (updateCustomerGroupResponse401 | updateCustomerGroupResponse403 | updateCustomerGroupResponse404 | updateCustomerGroupResponse422) & {
+export type updateCustomerGroupResponseError = (updateCustomerGroupResponse401 | updateCustomerGroupResponse403 | updateCustomerGroupResponse404 | updateCustomerGroupResponse422 | updateCustomerGroupResponse429) & {
   headers: Headers;
 };
 
@@ -3276,10 +3366,15 @@ export type restoreCustomerGroupResponse404 = {
   status: 404
 }
 
+export type restoreCustomerGroupResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type restoreCustomerGroupResponseSuccess = (restoreCustomerGroupResponse200) & {
   headers: Headers;
 };
-export type restoreCustomerGroupResponseError = (restoreCustomerGroupResponse401 | restoreCustomerGroupResponse403 | restoreCustomerGroupResponse404) & {
+export type restoreCustomerGroupResponseError = (restoreCustomerGroupResponse401 | restoreCustomerGroupResponse403 | restoreCustomerGroupResponse404 | restoreCustomerGroupResponse429) & {
   headers: Headers;
 };
 
@@ -3337,10 +3432,15 @@ export type listCustomersResponse422 = {
   status: 422
 }
 
+export type listCustomersResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type listCustomersResponseSuccess = (listCustomersResponse200) & {
   headers: Headers;
 };
-export type listCustomersResponseError = (listCustomersResponse401 | listCustomersResponse403 | listCustomersResponse422) & {
+export type listCustomersResponseError = (listCustomersResponse401 | listCustomersResponse403 | listCustomersResponse422 | listCustomersResponse429) & {
   headers: Headers;
 };
 
@@ -3405,10 +3505,15 @@ export type createCustomerResponse422 = {
   status: 422
 }
 
+export type createCustomerResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type createCustomerResponseSuccess = (createCustomerResponse201) & {
   headers: Headers;
 };
-export type createCustomerResponseError = (createCustomerResponse401 | createCustomerResponse403 | createCustomerResponse422) & {
+export type createCustomerResponseError = (createCustomerResponse401 | createCustomerResponse403 | createCustomerResponse422 | createCustomerResponse429) & {
   headers: Headers;
 };
 
@@ -3466,10 +3571,15 @@ export type deleteCustomerResponse404 = {
   status: 404
 }
 
+export type deleteCustomerResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type deleteCustomerResponseSuccess = (deleteCustomerResponse204) & {
   headers: Headers;
 };
-export type deleteCustomerResponseError = (deleteCustomerResponse401 | deleteCustomerResponse403 | deleteCustomerResponse404) & {
+export type deleteCustomerResponseError = (deleteCustomerResponse401 | deleteCustomerResponse403 | deleteCustomerResponse404 | deleteCustomerResponse429) & {
   headers: Headers;
 };
 
@@ -3527,10 +3637,15 @@ export type getCustomerResponse404 = {
   status: 404
 }
 
+export type getCustomerResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type getCustomerResponseSuccess = (getCustomerResponse200) & {
   headers: Headers;
 };
-export type getCustomerResponseError = (getCustomerResponse401 | getCustomerResponse403 | getCustomerResponse404) & {
+export type getCustomerResponseError = (getCustomerResponse401 | getCustomerResponse403 | getCustomerResponse404 | getCustomerResponse429) & {
   headers: Headers;
 };
 
@@ -3593,10 +3708,15 @@ export type updateCustomerResponse422 = {
   status: 422
 }
 
+export type updateCustomerResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type updateCustomerResponseSuccess = (updateCustomerResponse200) & {
   headers: Headers;
 };
-export type updateCustomerResponseError = (updateCustomerResponse401 | updateCustomerResponse403 | updateCustomerResponse404 | updateCustomerResponse422) & {
+export type updateCustomerResponseError = (updateCustomerResponse401 | updateCustomerResponse403 | updateCustomerResponse404 | updateCustomerResponse422 | updateCustomerResponse429) & {
   headers: Headers;
 };
 
@@ -3665,10 +3785,15 @@ export type addCustomerGroupsResponse422 = {
   status: 422
 }
 
+export type addCustomerGroupsResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type addCustomerGroupsResponseSuccess = (addCustomerGroupsResponse200) & {
   headers: Headers;
 };
-export type addCustomerGroupsResponseError = (addCustomerGroupsResponse400 | addCustomerGroupsResponse401 | addCustomerGroupsResponse403 | addCustomerGroupsResponse404 | addCustomerGroupsResponse422) & {
+export type addCustomerGroupsResponseError = (addCustomerGroupsResponse400 | addCustomerGroupsResponse401 | addCustomerGroupsResponse403 | addCustomerGroupsResponse404 | addCustomerGroupsResponse422 | addCustomerGroupsResponse429) & {
   headers: Headers;
 };
 
@@ -3732,10 +3857,15 @@ export type removeCustomerGroupsResponse422 = {
   status: 422
 }
 
+export type removeCustomerGroupsResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type removeCustomerGroupsResponseSuccess = (removeCustomerGroupsResponse200) & {
   headers: Headers;
 };
-export type removeCustomerGroupsResponseError = (removeCustomerGroupsResponse401 | removeCustomerGroupsResponse403 | removeCustomerGroupsResponse404 | removeCustomerGroupsResponse422) & {
+export type removeCustomerGroupsResponseError = (removeCustomerGroupsResponse401 | removeCustomerGroupsResponse403 | removeCustomerGroupsResponse404 | removeCustomerGroupsResponse422 | removeCustomerGroupsResponse429) & {
   headers: Headers;
 };
 
@@ -3794,10 +3924,15 @@ export type restoreCustomerResponse404 = {
   status: 404
 }
 
+export type restoreCustomerResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type restoreCustomerResponseSuccess = (restoreCustomerResponse200) & {
   headers: Headers;
 };
-export type restoreCustomerResponseError = (restoreCustomerResponse401 | restoreCustomerResponse403 | restoreCustomerResponse404) & {
+export type restoreCustomerResponseError = (restoreCustomerResponse401 | restoreCustomerResponse403 | restoreCustomerResponse404 | restoreCustomerResponse429) & {
   headers: Headers;
 };
 
@@ -3951,10 +4086,15 @@ export type listLocationsResponse422 = {
   status: 422
 }
 
+export type listLocationsResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type listLocationsResponseSuccess = (listLocationsResponse200) & {
   headers: Headers;
 };
-export type listLocationsResponseError = (listLocationsResponse401 | listLocationsResponse403 | listLocationsResponse422) & {
+export type listLocationsResponseError = (listLocationsResponse401 | listLocationsResponse403 | listLocationsResponse422 | listLocationsResponse429) & {
   headers: Headers;
 };
 
@@ -4019,10 +4159,15 @@ export type createLocationResponse422 = {
   status: 422
 }
 
+export type createLocationResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type createLocationResponseSuccess = (createLocationResponse201) & {
   headers: Headers;
 };
-export type createLocationResponseError = (createLocationResponse401 | createLocationResponse403 | createLocationResponse422) & {
+export type createLocationResponseError = (createLocationResponse401 | createLocationResponse403 | createLocationResponse422 | createLocationResponse429) & {
   headers: Headers;
 };
 
@@ -4080,10 +4225,15 @@ export type deleteLocationResponse404 = {
   status: 404
 }
 
+export type deleteLocationResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type deleteLocationResponseSuccess = (deleteLocationResponse204) & {
   headers: Headers;
 };
-export type deleteLocationResponseError = (deleteLocationResponse401 | deleteLocationResponse403 | deleteLocationResponse404) & {
+export type deleteLocationResponseError = (deleteLocationResponse401 | deleteLocationResponse403 | deleteLocationResponse404 | deleteLocationResponse429) & {
   headers: Headers;
 };
 
@@ -4136,10 +4286,15 @@ export type getLocationResponse404 = {
   status: 404
 }
 
+export type getLocationResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type getLocationResponseSuccess = (getLocationResponse200) & {
   headers: Headers;
 };
-export type getLocationResponseError = (getLocationResponse401 | getLocationResponse404) & {
+export type getLocationResponseError = (getLocationResponse401 | getLocationResponse404 | getLocationResponse429) & {
   headers: Headers;
 };
 
@@ -4202,10 +4357,15 @@ export type updateLocationResponse422 = {
   status: 422
 }
 
+export type updateLocationResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type updateLocationResponseSuccess = (updateLocationResponse200) & {
   headers: Headers;
 };
-export type updateLocationResponseError = (updateLocationResponse401 | updateLocationResponse403 | updateLocationResponse404 | updateLocationResponse422) & {
+export type updateLocationResponseError = (updateLocationResponse401 | updateLocationResponse403 | updateLocationResponse404 | updateLocationResponse422 | updateLocationResponse429) & {
   headers: Headers;
 };
 
@@ -4264,10 +4424,15 @@ export type restoreLocationResponse404 = {
   status: 404
 }
 
+export type restoreLocationResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type restoreLocationResponseSuccess = (restoreLocationResponse200) & {
   headers: Headers;
 };
-export type restoreLocationResponseError = (restoreLocationResponse401 | restoreLocationResponse403 | restoreLocationResponse404) & {
+export type restoreLocationResponseError = (restoreLocationResponse401 | restoreLocationResponse403 | restoreLocationResponse404 | restoreLocationResponse429) & {
   headers: Headers;
 };
 
@@ -4376,10 +4541,15 @@ export type listResourcesResponse422 = {
   status: 422
 }
 
+export type listResourcesResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type listResourcesResponseSuccess = (listResourcesResponse200) & {
   headers: Headers;
 };
-export type listResourcesResponseError = (listResourcesResponse401 | listResourcesResponse403 | listResourcesResponse422) & {
+export type listResourcesResponseError = (listResourcesResponse401 | listResourcesResponse403 | listResourcesResponse422 | listResourcesResponse429) & {
   headers: Headers;
 };
 
@@ -4444,10 +4614,15 @@ export type createResourceResponse422 = {
   status: 422
 }
 
+export type createResourceResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type createResourceResponseSuccess = (createResourceResponse201) & {
   headers: Headers;
 };
-export type createResourceResponseError = (createResourceResponse401 | createResourceResponse403 | createResourceResponse422) & {
+export type createResourceResponseError = (createResourceResponse401 | createResourceResponse403 | createResourceResponse422 | createResourceResponse429) & {
   headers: Headers;
 };
 
@@ -4505,10 +4680,15 @@ export type deleteResourceResponse404 = {
   status: 404
 }
 
+export type deleteResourceResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type deleteResourceResponseSuccess = (deleteResourceResponse204) & {
   headers: Headers;
 };
-export type deleteResourceResponseError = (deleteResourceResponse401 | deleteResourceResponse403 | deleteResourceResponse404) & {
+export type deleteResourceResponseError = (deleteResourceResponse401 | deleteResourceResponse403 | deleteResourceResponse404 | deleteResourceResponse429) & {
   headers: Headers;
 };
 
@@ -4566,10 +4746,15 @@ export type getResourceResponse404 = {
   status: 404
 }
 
+export type getResourceResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type getResourceResponseSuccess = (getResourceResponse200) & {
   headers: Headers;
 };
-export type getResourceResponseError = (getResourceResponse401 | getResourceResponse403 | getResourceResponse404) & {
+export type getResourceResponseError = (getResourceResponse401 | getResourceResponse403 | getResourceResponse404 | getResourceResponse429) & {
   headers: Headers;
 };
 
@@ -4632,10 +4817,15 @@ export type updateResourceResponse422 = {
   status: 422
 }
 
+export type updateResourceResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type updateResourceResponseSuccess = (updateResourceResponse200) & {
   headers: Headers;
 };
-export type updateResourceResponseError = (updateResourceResponse401 | updateResourceResponse403 | updateResourceResponse404 | updateResourceResponse422) & {
+export type updateResourceResponseError = (updateResourceResponse401 | updateResourceResponse403 | updateResourceResponse404 | updateResourceResponse422 | updateResourceResponse429) & {
   headers: Headers;
 };
 
@@ -4694,10 +4884,15 @@ export type restoreResourceResponse404 = {
   status: 404
 }
 
+export type restoreResourceResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type restoreResourceResponseSuccess = (restoreResourceResponse200) & {
   headers: Headers;
 };
-export type restoreResourceResponseError = (restoreResourceResponse401 | restoreResourceResponse403 | restoreResourceResponse404) & {
+export type restoreResourceResponseError = (restoreResourceResponse401 | restoreResourceResponse403 | restoreResourceResponse404 | restoreResourceResponse429) & {
   headers: Headers;
 };
 
@@ -4760,10 +4955,15 @@ export type createResourceScheduleResponse422 = {
   status: 422
 }
 
+export type createResourceScheduleResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type createResourceScheduleResponseSuccess = (createResourceScheduleResponse201) & {
   headers: Headers;
 };
-export type createResourceScheduleResponseError = (createResourceScheduleResponse401 | createResourceScheduleResponse403 | createResourceScheduleResponse404 | createResourceScheduleResponse422) & {
+export type createResourceScheduleResponseError = (createResourceScheduleResponse401 | createResourceScheduleResponse403 | createResourceScheduleResponse404 | createResourceScheduleResponse422 | createResourceScheduleResponse429) & {
   headers: Headers;
 };
 
@@ -4822,10 +5022,15 @@ export type deleteResourceScheduleResponse404 = {
   status: 404
 }
 
+export type deleteResourceScheduleResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type deleteResourceScheduleResponseSuccess = (deleteResourceScheduleResponse204) & {
   headers: Headers;
 };
-export type deleteResourceScheduleResponseError = (deleteResourceScheduleResponse401 | deleteResourceScheduleResponse403 | deleteResourceScheduleResponse404) & {
+export type deleteResourceScheduleResponseError = (deleteResourceScheduleResponse401 | deleteResourceScheduleResponse403 | deleteResourceScheduleResponse404 | deleteResourceScheduleResponse429) & {
   headers: Headers;
 };
 
@@ -4885,10 +5090,15 @@ export type listServicesResponse422 = {
   status: 422
 }
 
+export type listServicesResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type listServicesResponseSuccess = (listServicesResponse200) & {
   headers: Headers;
 };
-export type listServicesResponseError = (listServicesResponse401 | listServicesResponse403 | listServicesResponse422) & {
+export type listServicesResponseError = (listServicesResponse401 | listServicesResponse403 | listServicesResponse422 | listServicesResponse429) & {
   headers: Headers;
 };
 
@@ -4953,10 +5163,15 @@ export type createServiceResponse422 = {
   status: 422
 }
 
+export type createServiceResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type createServiceResponseSuccess = (createServiceResponse201) & {
   headers: Headers;
 };
-export type createServiceResponseError = (createServiceResponse401 | createServiceResponse403 | createServiceResponse422) & {
+export type createServiceResponseError = (createServiceResponse401 | createServiceResponse403 | createServiceResponse422 | createServiceResponse429) & {
   headers: Headers;
 };
 
@@ -5014,10 +5229,15 @@ export type deleteServiceResponse404 = {
   status: 404
 }
 
+export type deleteServiceResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type deleteServiceResponseSuccess = (deleteServiceResponse204) & {
   headers: Headers;
 };
-export type deleteServiceResponseError = (deleteServiceResponse401 | deleteServiceResponse403 | deleteServiceResponse404) & {
+export type deleteServiceResponseError = (deleteServiceResponse401 | deleteServiceResponse403 | deleteServiceResponse404 | deleteServiceResponse429) & {
   headers: Headers;
 };
 
@@ -5070,10 +5290,15 @@ export type getServiceResponse404 = {
   status: 404
 }
 
+export type getServiceResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type getServiceResponseSuccess = (getServiceResponse200) & {
   headers: Headers;
 };
-export type getServiceResponseError = (getServiceResponse401 | getServiceResponse404) & {
+export type getServiceResponseError = (getServiceResponse401 | getServiceResponse404 | getServiceResponse429) & {
   headers: Headers;
 };
 
@@ -5136,10 +5361,15 @@ export type updateServiceResponse422 = {
   status: 422
 }
 
+export type updateServiceResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type updateServiceResponseSuccess = (updateServiceResponse200) & {
   headers: Headers;
 };
-export type updateServiceResponseError = (updateServiceResponse401 | updateServiceResponse403 | updateServiceResponse404 | updateServiceResponse422) & {
+export type updateServiceResponseError = (updateServiceResponse401 | updateServiceResponse403 | updateServiceResponse404 | updateServiceResponse422 | updateServiceResponse429) & {
   headers: Headers;
 };
 
@@ -5203,10 +5433,15 @@ export type listServicePriceRulesResponse422 = {
   status: 422
 }
 
+export type listServicePriceRulesResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type listServicePriceRulesResponseSuccess = (listServicePriceRulesResponse200) & {
   headers: Headers;
 };
-export type listServicePriceRulesResponseError = (listServicePriceRulesResponse401 | listServicePriceRulesResponse403 | listServicePriceRulesResponse404 | listServicePriceRulesResponse422) & {
+export type listServicePriceRulesResponseError = (listServicePriceRulesResponse401 | listServicePriceRulesResponse403 | listServicePriceRulesResponse404 | listServicePriceRulesResponse422 | listServicePriceRulesResponse429) & {
   headers: Headers;
 };
 
@@ -5278,10 +5513,15 @@ export type createServicePriceRuleResponse422 = {
   status: 422
 }
 
+export type createServicePriceRuleResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type createServicePriceRuleResponseSuccess = (createServicePriceRuleResponse201) & {
   headers: Headers;
 };
-export type createServicePriceRuleResponseError = (createServicePriceRuleResponse401 | createServicePriceRuleResponse403 | createServicePriceRuleResponse404 | createServicePriceRuleResponse422) & {
+export type createServicePriceRuleResponseError = (createServicePriceRuleResponse401 | createServicePriceRuleResponse403 | createServicePriceRuleResponse404 | createServicePriceRuleResponse422 | createServicePriceRuleResponse429) & {
   headers: Headers;
 };
 
@@ -5340,10 +5580,15 @@ export type deleteServicePriceRuleResponse404 = {
   status: 404
 }
 
+export type deleteServicePriceRuleResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type deleteServicePriceRuleResponseSuccess = (deleteServicePriceRuleResponse204) & {
   headers: Headers;
 };
-export type deleteServicePriceRuleResponseError = (deleteServicePriceRuleResponse401 | deleteServicePriceRuleResponse403 | deleteServicePriceRuleResponse404) & {
+export type deleteServicePriceRuleResponseError = (deleteServicePriceRuleResponse401 | deleteServicePriceRuleResponse403 | deleteServicePriceRuleResponse404 | deleteServicePriceRuleResponse429) & {
   headers: Headers;
 };
 
@@ -5403,10 +5648,15 @@ export type restoreServiceResponse404 = {
   status: 404
 }
 
+export type restoreServiceResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type restoreServiceResponseSuccess = (restoreServiceResponse200) & {
   headers: Headers;
 };
-export type restoreServiceResponseError = (restoreServiceResponse401 | restoreServiceResponse403 | restoreServiceResponse404) & {
+export type restoreServiceResponseError = (restoreServiceResponse401 | restoreServiceResponse403 | restoreServiceResponse404 | restoreServiceResponse429) & {
   headers: Headers;
 };
 
@@ -5464,10 +5714,15 @@ export type listWebhooksResponse422 = {
   status: 422
 }
 
+export type listWebhooksResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type listWebhooksResponseSuccess = (listWebhooksResponse200) & {
   headers: Headers;
 };
-export type listWebhooksResponseError = (listWebhooksResponse401 | listWebhooksResponse403 | listWebhooksResponse422) & {
+export type listWebhooksResponseError = (listWebhooksResponse401 | listWebhooksResponse403 | listWebhooksResponse422 | listWebhooksResponse429) & {
   headers: Headers;
 };
 
@@ -5532,10 +5787,15 @@ export type createWebhookResponse422 = {
   status: 422
 }
 
+export type createWebhookResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type createWebhookResponseSuccess = (createWebhookResponse201) & {
   headers: Headers;
 };
-export type createWebhookResponseError = (createWebhookResponse401 | createWebhookResponse403 | createWebhookResponse422) & {
+export type createWebhookResponseError = (createWebhookResponse401 | createWebhookResponse403 | createWebhookResponse422 | createWebhookResponse429) & {
   headers: Headers;
 };
 
@@ -5593,10 +5853,15 @@ export type deleteWebhookResponse404 = {
   status: 404
 }
 
+export type deleteWebhookResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type deleteWebhookResponseSuccess = (deleteWebhookResponse204) & {
   headers: Headers;
 };
-export type deleteWebhookResponseError = (deleteWebhookResponse401 | deleteWebhookResponse403 | deleteWebhookResponse404) & {
+export type deleteWebhookResponseError = (deleteWebhookResponse401 | deleteWebhookResponse403 | deleteWebhookResponse404 | deleteWebhookResponse429) & {
   headers: Headers;
 };
 
@@ -5654,10 +5919,15 @@ export type getWebhookResponse404 = {
   status: 404
 }
 
+export type getWebhookResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type getWebhookResponseSuccess = (getWebhookResponse200) & {
   headers: Headers;
 };
-export type getWebhookResponseError = (getWebhookResponse401 | getWebhookResponse403 | getWebhookResponse404) & {
+export type getWebhookResponseError = (getWebhookResponse401 | getWebhookResponse403 | getWebhookResponse404 | getWebhookResponse429) & {
   headers: Headers;
 };
 
@@ -5720,10 +5990,15 @@ export type updateWebhookResponse422 = {
   status: 422
 }
 
+export type updateWebhookResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type updateWebhookResponseSuccess = (updateWebhookResponse200) & {
   headers: Headers;
 };
-export type updateWebhookResponseError = (updateWebhookResponse401 | updateWebhookResponse403 | updateWebhookResponse404 | updateWebhookResponse422) & {
+export type updateWebhookResponseError = (updateWebhookResponse401 | updateWebhookResponse403 | updateWebhookResponse404 | updateWebhookResponse422 | updateWebhookResponse429) & {
   headers: Headers;
 };
 
@@ -5787,10 +6062,15 @@ export type listWebhookDeliveriesResponse422 = {
   status: 422
 }
 
+export type listWebhookDeliveriesResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type listWebhookDeliveriesResponseSuccess = (listWebhookDeliveriesResponse200) & {
   headers: Headers;
 };
-export type listWebhookDeliveriesResponseError = (listWebhookDeliveriesResponse401 | listWebhookDeliveriesResponse403 | listWebhookDeliveriesResponse404 | listWebhookDeliveriesResponse422) & {
+export type listWebhookDeliveriesResponseError = (listWebhookDeliveriesResponse401 | listWebhookDeliveriesResponse403 | listWebhookDeliveriesResponse404 | listWebhookDeliveriesResponse422 | listWebhookDeliveriesResponse429) & {
   headers: Headers;
 };
 
@@ -5857,10 +6137,15 @@ export type restoreWebhookResponse404 = {
   status: 404
 }
 
+export type restoreWebhookResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type restoreWebhookResponseSuccess = (restoreWebhookResponse200) & {
   headers: Headers;
 };
-export type restoreWebhookResponseError = (restoreWebhookResponse401 | restoreWebhookResponse403 | restoreWebhookResponse404) & {
+export type restoreWebhookResponseError = (restoreWebhookResponse401 | restoreWebhookResponse403 | restoreWebhookResponse404 | restoreWebhookResponse429) & {
   headers: Headers;
 };
 
@@ -5918,10 +6203,15 @@ export type testWebhookResponse404 = {
   status: 404
 }
 
+export type testWebhookResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type testWebhookResponseSuccess = (testWebhookResponse200) & {
   headers: Headers;
 };
-export type testWebhookResponseError = (testWebhookResponse401 | testWebhookResponse403 | testWebhookResponse404) & {
+export type testWebhookResponseError = (testWebhookResponse401 | testWebhookResponse403 | testWebhookResponse404 | testWebhookResponse429) & {
   headers: Headers;
 };
 
@@ -5979,10 +6269,15 @@ export type getWorkspaceResponse404 = {
   status: 404
 }
 
+export type getWorkspaceResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type getWorkspaceResponseSuccess = (getWorkspaceResponse200) & {
   headers: Headers;
 };
-export type getWorkspaceResponseError = (getWorkspaceResponse401 | getWorkspaceResponse403 | getWorkspaceResponse404) & {
+export type getWorkspaceResponseError = (getWorkspaceResponse401 | getWorkspaceResponse403 | getWorkspaceResponse404 | getWorkspaceResponse429) & {
   headers: Headers;
 };
 
@@ -6045,10 +6340,15 @@ export type updateWorkspaceResponse422 = {
   status: 422
 }
 
+export type updateWorkspaceResponse429 = {
+  data: RateLimitResponseResponse
+  status: 429
+}
+
 export type updateWorkspaceResponseSuccess = (updateWorkspaceResponse200) & {
   headers: Headers;
 };
-export type updateWorkspaceResponseError = (updateWorkspaceResponse401 | updateWorkspaceResponse403 | updateWorkspaceResponse404 | updateWorkspaceResponse422) & {
+export type updateWorkspaceResponseError = (updateWorkspaceResponse401 | updateWorkspaceResponse403 | updateWorkspaceResponse404 | updateWorkspaceResponse422 | updateWorkspaceResponse429) & {
   headers: Headers;
 };
 

@@ -1,4 +1,4 @@
-import { mkdir, readFile, rm } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { spawn } from 'node:child_process'
 
@@ -63,18 +63,26 @@ if (contractDigest !== source.apiSha256) {
 
 const target = resolve(process.env.GENERATED_OUTPUT ?? 'packages/typescript/src/generated.ts')
 await mkdir(dirname(target), { recursive: true })
-await rm(target, { force: true })
 const config = resolve('.tmp/orval.config.mjs')
 await mkdir(dirname(config), { recursive: true })
+// Orval clean:true removes the target directory, including handwritten seams.
+// Generate in isolation and replace only the intended artifact after success.
+const generationDirectory = await mkdtemp(resolve('.tmp/orval-output-'))
+const generatedTarget = resolve(generationDirectory, 'generated.ts')
 const runtimeConfig = {
   availkit: {
     input: { target: input },
-    output: { ...canonicalConfig.availkit.output, target },
+    output: { ...canonicalConfig.availkit.output, target: generatedTarget },
   },
 }
-await Bun.write(config, `export default ${JSON.stringify(runtimeConfig, null, 2)}\n`)
-const child = spawn('bun', ['run', 'orval', '--config', config], { stdio: 'inherit' })
-const code = await new Promise<number>((ok, fail) => { child.once('error', fail); child.once('close', value => ok(value ?? 1)) })
-if (code !== 0) throw new Error(`Orval exited with ${code}`)
-const output = await readFile(target, 'utf8')
-if (/generatedAt|timestamp/i.test(output)) throw new Error('Generated output contains a timestamp')
+try {
+  await Bun.write(config, `export default ${JSON.stringify(runtimeConfig, null, 2)}\n`)
+  const child = spawn('bun', ['run', 'orval', '--config', config], { stdio: 'inherit' })
+  const code = await new Promise<number>((ok, fail) => { child.once('error', fail); child.once('close', value => ok(value ?? 1)) })
+  if (code !== 0) throw new Error(`Orval exited with ${code}`)
+  const output = await readFile(generatedTarget, 'utf8')
+  if (/generatedAt|timestamp/i.test(output)) throw new Error('Generated output contains a timestamp')
+  await Bun.write(target, output)
+} finally {
+  await rm(generationDirectory, { recursive: true, force: true })
+}
