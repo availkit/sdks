@@ -5,6 +5,8 @@ import { resolve } from 'node:path'
 await mkdir(resolve('.tmp'), { recursive: true })
 const directory = await mkdtemp(resolve('.tmp/generated-check-'))
 const candidate = resolve(directory, 'generated.ts')
+const sibling = resolve(directory, 'handwritten-canary.ts')
+await Bun.write(sibling, 'export const handwritten = true\n')
 const child = spawn('bun', ['run', 'scripts/generate.ts'], {
   env: { ...process.env, GENERATED_OUTPUT: candidate },
   stdio: 'inherit',
@@ -14,6 +16,9 @@ const code = await new Promise<number>((ok, fail) => {
   child.once('close', value => ok(value ?? 1))
 })
 if (code !== 0) throw new Error(`Generation exited with ${code}`)
+if (await readFile(sibling, 'utf8') !== 'export const handwritten = true\n') {
+  throw new Error('Generation modified a handwritten sibling file')
+}
 
 const [committed, generated] = await Promise.all([
   readFile(resolve('packages/typescript/src/generated.ts'), 'utf8'),
