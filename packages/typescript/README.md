@@ -18,11 +18,13 @@ const availkit = createClient({
 })
 
 try {
-  const { data } = await availkit.getAvailability({
+  const response = await availkit.getAvailability({
     service_id: 'svc_example',
     date: '2026-07-20',
   })
-  console.log(data.slots)
+  if (response.status === 200) {
+    console.log(response.data.slots)
+  }
 } catch (error) {
   if (error instanceof AvailKitError) {
     console.error(error.status, error.code, error.requestId)
@@ -37,6 +39,8 @@ try {
 - `fetch`: optional standards-compatible fetch implementation.
 
 Every generated operation is available as a client method. Authentication, base URL routing, and fetch injection are handled by the client, while all generated types, response unions, enum values, operations, and URL helpers remain available as named exports.
+
+Responses preserve the HTTP status in their TypeScript union. Narrow `response.status` before reading fields specific to a successful response. The client throws `AvailKitError` for non-successful HTTP responses.
 
 Use only publishable keys in browser applications. Secret keys belong in trusted server runtimes.
 
